@@ -1,5 +1,12 @@
 function varargout = DicomViewer(varargin)
-% DicomViewer is a simple graphical interface for viewing DICOM RT files
+% DicomViewer loads and displays the contents of DICOM RT files. 
+% The interface allows the user to select a folder to scan for DICOM files, 
+% then loads the file contents into a series of simple MATLAB objects and 
+% displays the CT transverse, coronal, and sagittal axes with overlaying 
+% contours and dose colorwash. An RT structure Set and RT Dose file is 
+% optional, but if provided, a DVH will also be displayed along with a 
+% table for adjusting contour display and reporting the dose values for a 
+% given relative volume.
 %
 % Author: Mark Geurts, mark.w.geurts@gmail.com
 % Copyright (C) 2016 University of Wisconsin Board of Regents

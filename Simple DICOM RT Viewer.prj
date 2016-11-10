@@ -1,0 +1,87 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="2885614103" file="/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_viewer/Simple DICOM RT Viewer.prj" location="/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_viewer" name="Simple DICOM RT Viewer" target="target.mlapps" target-name="Package App">
+    <param.appname>Simple DICOM RT Viewer</param.appname>
+    <param.authnamewatermark>Mark Geurts</param.authnamewatermark>
+    <param.email>mark.w.geurts@gmail.com</param.email>
+    <param.company>University of Wisconsin-Madison</param.company>
+    <param.icon />
+    <param.icons />
+    <param.summary>Simple DICOM RT Viewer for MATLAB</param.summary>
+    <param.description>The Simple DICOM RT Viewer is a MATLAB graphical user interface that loads and displays the contents of DICOM CT, RT Structure Set, and RT Dose files. The interface allows the user to select a folder to scan for DICOM files, then loads the file contents into a series of simple MATLAB objects and displays the CT transverse, coronal, and sagittal axes with overlaying contours and dose colorwash. An RT structure Set and RT Dose file is optional, but if provided, a DVH will also be displayed along with a table for adjusting contour display and reporting the dose values for a given relative volume.</param.description>
+    <param.screenshot />
+    <param.version>1.0</param.version>
+    <param.products.name>
+      <item>Image Processing Toolbox</item>
+      <item>MATLAB</item>
+      <item>Parallel Computing Toolbox</item>
+      <item>MATLAB Distributed Computing Server</item>
+    </param.products.name>
+    <param.products.id>
+      <item>'17'</item>
+      <item>'1'</item>
+      <item>'80'</item>
+      <item>'94'</item>
+    </param.products.id>
+    <param.products.version>
+      <item>9.2</item>
+      <item>8.5</item>
+      <item>6.6</item>
+      <item>6.6</item>
+    </param.products.version>
+    <param.platforms />
+    <param.output>${PROJECT_ROOT}/Simple DICOM RT Viewer.mlappinstall</param.output>
+    <param.guid>1376e36d-d571-481a-9d7d-36cec7bb71d9</param.guid>
+    <unset>
+      <param.authnamewatermark />
+      <param.email />
+      <param.company />
+      <param.icon />
+      <param.icons />
+      <param.screenshot />
+      <param.version />
+      <param.platforms />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/DicomViewer.m</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
+      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/LoadDICOMDose.m</file>
+      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/LoadDICOMImages.m</file>
+      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/LoadDICOMStructures.m</file>
+      <file>${PROJECT_ROOT}/DicomViewer.fig</file>
+      <file>${PROJECT_ROOT}/Event.m</file>
+      <file>${PROJECT_ROOT}/InitializeStatistics.m</file>
+      <file>${PROJECT_ROOT}/InitializeViewer.m</file>
+      <file>${PROJECT_ROOT}/LoadVersionInfo.m</file>
+      <file>${PROJECT_ROOT}/UpdateDVH.m</file>
+      <file>${PROJECT_ROOT}/UpdateDoseStatistics.m</file>
+      <file>${PROJECT_ROOT}/UpdateViewer.m</file>
+    </fileset.depfun>
+    <fileset.resources />
+    <fileset.package />
+    <build-deliverables>
+      <file location="/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_viewer" name="Simple DICOM RT Viewer.mlappinstall" optional="false">/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_viewer/Simple DICOM RT Viewer.mlappinstall</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/Applications/MATLAB_R2015a.app</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>true</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.10.5</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>maci64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
