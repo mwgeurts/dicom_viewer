@@ -1,0 +1,3 @@
+[submodule "dicom_tools"]
+	path = dicom_tools
+	url = https://github.com/mwgeurts/dicom_tools
