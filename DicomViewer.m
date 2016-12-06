@@ -60,7 +60,7 @@ warning('off','all');
 handles.output = hObject;
 
 % Set version handle
-handles.version = '1.0';
+handles.version = '1.1.0';
 
 % Determine path of current application
 [path, ~, ~] = fileparts(mfilename('fullpath'));
@@ -93,8 +93,10 @@ string = sprintf('%s\n', separator, string{:}, separator);
 Event(string, 'INIT');
 
 %% Add submodule
-% Add archive extraction tools submodule to search path
+% Add archive extraction tools submodule to search path (../dicom_tools
+% added for debugging)
 addpath('./dicom_tools');
+% addpath('../dicom_tools');
 
 % Check if MATLAB can find LoadDICOMImages
 if exist('LoadDICOMImages', 'file') ~= 2
@@ -483,6 +485,9 @@ if ~isequal(handles.path, 0)
     % Set path
     set(handles.input_folder, 'String', handles.path);
     
+    % Start waitbar
+    progress = waitbar(0, 'Scanning path for DICOM files');
+    
     % Scan the directory for DICOM files
     Event(['Scanning ', handles.path, ' for DICOM files']);
     
@@ -493,15 +498,18 @@ if ~isequal(handles.path, 0)
     i = 0;
     
     % Initialize list of DICOM files
-    ctfiles = cell(0);
+    imagefiles = cell(0);
     rtssfiles = cell(0);
     dosefiles = cell(0);
 
     % Start recursive loop through each folder, subfolder
-    while i < size(list, 1)
+    while i < length(list)
     
         % Increment current folder being analyzed
         i = i + 1;
+        
+        % Update waitbar
+        waitbar(i/length(list), progress);
 
         % If the folder content is . or .., skip to next folder in list
         if strcmp(list(i).name, '.') || strcmp(list(i).name, '..')
@@ -548,10 +556,12 @@ if ~isequal(handles.path, 0)
                     continue
                 end
                 
-                % If CT, add to ctfiles
+                % If CT or MR, add to imagefiles
                 if strcmp(info.MediaStorageSOPClassUID, ...
-                        '1.2.840.10008.5.1.4.1.1.2')
-                    ctfiles{length(ctfiles)+1} = list(i).name;
+                        '1.2.840.10008.5.1.4.1.1.2') || ...
+                        strcmp(info.MediaStorageSOPClassUID, ...
+                        '1.2.840.10008.5.1.4.1.1.4')
+                    imagefiles{length(imagefiles)+1} = list(i).name;
                     
                 % Otherwise, if structure, add to rtssfiles
                 elseif strcmp(info.MediaStorageSOPClassUID, ...
@@ -571,16 +581,19 @@ if ~isequal(handles.path, 0)
         end
     end
     
+    % Close waitbar
+    close(progress);
+    
     % Log completion
-    Event(sprintf(['Scan completed, finding %i CT image, %i structure ', ...
-        'sets, and %i dose files'], length(ctfiles), length(rtssfiles), ...
+    Event(sprintf(['Scan completed, finding %i image, %i structure ', ...
+        'sets, and %i dose files'], length(imagefiles), length(rtssfiles), ...
         length(dosefiles)));
     
     % Only continue if at least one image was found
-    if ~isempty(ctfiles)
+    if ~isempty(imagefiles)
         
         % Load the DICOM CT
-        handles.image = LoadDICOMImages(handles.path, ctfiles);
+        handles.image = LoadDICOMImages(handles.path, imagefiles);
     
         % If a structure set was found
         if ~isempty(rtssfiles)
@@ -608,9 +621,9 @@ if ~isequal(handles.path, 0)
                 
                 % Compute X, Y, and Z meshgrids for the CT image dataset 
                 % positions using the start and width values, permuting X/Y
-                [refX, refY, refZ] = meshgrid(single(handles.image.start(2): ...
-                    handles.image.width(2):handles.image.start(2) + ...
-                    handles.image.width(2) * (size(handles.image.data,2) - 1)), ...
+                [refX, refY, refZ] = meshgrid(single(handles.image.start(2) + ...
+                    handles.image.width(2) * (size(handles.image.data,2) - 1): ...
+                    -handles.image.width(2):handles.image.start(2)), ...
                     single(handles.image.start(1):handles.image.width(1)...
                     :handles.image.start(1) + handles.image.width(1)...
                     * (size(handles.image.data,1) - 1)), ...
@@ -620,9 +633,9 @@ if ~isequal(handles.path, 0)
                 
                 % Compute X, Y, and Z meshgrids for the dose dataset using
                 % the start and width values, permuting X/Y
-                [tarX, tarY, tarZ] = meshgrid(single(handles.dose.start(2):...
-                    handles.dose.width(2):handles.dose.start(2) + ...
-                    handles.dose.width(2) * (size(handles.dose.data,2) - 1)), ...
+                [tarX, tarY, tarZ] = meshgrid(single(handles.dose.start(2) + ...
+                    handles.dose.width(2) * (size(handles.dose.data,2) - 1): ...
+                    -handles.dose.width(2):handles.dose.start(2)), ...
                     single(handles.dose.start(1):handles.dose.width(1):...
                     handles.dose.start(1) + handles.dose.width(1) ...
                     * (size(handles.dose.data,1) - 1)), ...
@@ -655,7 +668,7 @@ if ~isequal(handles.path, 0)
                     % values at the specified target coordinate points
                     handles.idose.data = interp3(tarX, tarY, tarZ, ...
                         single(handles.dose.data), refX, ...
-                        refY, refZ, 'linear', 0);
+                        refY, refZ, '*linear', 0);
                 end
                 
                 % Set interpolated voxel parameters to CT
@@ -743,4 +756,34 @@ end
 guidata(hObject, handles);
 
 % Clear temporary variables
-clear info list ctfiles rtssfiles dosefiles alpha stats dvh;
+clear info list imagefiles rtssfiles dosefiles alpha stats dvh progress;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function DebugWriteDICOM(handles, path)
+% This function is used for debugging and validation purposes, and writes
+% the stored DICOM data back out using the WriteDICOM* functions in the
+% dicom_tools submodule. The function is executed using the DicomViewer
+% handles structure and a destination path to write to.
+
+% Write DICOM images (force new SOPs and frameRefUID)
+handles.image = rmfield(handles.image, 'instanceUIDs');
+handles.image.frameRefUID = dicomuid;
+handles.image.instanceUIDs = ...
+    WriteDICOMImage(handles.image, fullfile(path, 'IMG'), handles.image);
+
+% Write DICOM structures
+if isfield(handles.image, 'structures')
+    WriteDICOMStructures(handles.image.structures, ...
+        fullfile(path, 'RTSS.dcm'), handles.image);
+end
+
+% Write DICOM dose
+if isfield(handles, 'dose')
+    WriteDICOMDose(handles.dose, fullfile(path, 'RTDOSE.dcm'), ...
+        handles.image);
+end
+
+% Write DVH
+WriteDVH(handles.image, handles.dose, fullfile(path, 'DVH.csv'));
+
+% Clear temporary files
