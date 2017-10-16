@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3129490355" file="/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_viewer/Simple DICOM RT Viewer.prj" location="/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_viewer" name="Simple DICOM RT Viewer" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3713657390" file="/Users/mwgeurts/Documents/MATLAB Tools/dicom_viewer/Simple DICOM RT Viewer.prj" location="/Users/mwgeurts/Documents/MATLAB Tools/dicom_viewer" name="Simple DICOM RT Viewer" target="target.mlapps" target-name="Package App">
     <param.appname>Simple DICOM RT Viewer</param.appname>
     <param.authnamewatermark>Mark Geurts</param.authnamewatermark>
     <param.email>mark.w.geurts@gmail.com</param.email>
@@ -9,7 +9,7 @@
     <param.summary>Simple DICOM RT Viewer for MATLAB</param.summary>
     <param.description>The Simple DICOM RT Viewer is a MATLAB graphical user interface that loads and displays the contents of DICOM CT/MR, RT Structure Set, and RT Dose files. The interface allows the user to select a folder to scan for DICOM files, then loads the file contents into a series of simple MATLAB objects and displays the CT/MR transverse, coronal, and sagittal axes with overlaying contours and dose colorwash. An RT structure Set and RT Dose file is optional, but if provided, a DVH will also be displayed along with a table for adjusting contour display and reporting the dose values for a given relative volume.</param.description>
     <param.screenshot />
-    <param.version>1.1.0</param.version>
+    <param.version>1.2.0</param.version>
     <param.products.name>
       <item>Image Processing Toolbox</item>
       <item>MATLAB</item>
@@ -23,7 +23,7 @@
       <item>9.1</item>
     </param.products.version>
     <param.platforms />
-    <param.output>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_viewer</param.output>
+    <param.output>/Users/mwgeurts/Documents/MATLAB Tools/dicom_viewer</param.output>
     <param.guid>1376e36d-d571-481a-9d7d-36cec7bb71d9</param.guid>
     <unset>
       <param.authnamewatermark />
@@ -40,26 +40,37 @@
     </fileset.main>
     <fileset.depfun>
       <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
-      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/LoadDICOMDose.m</file>
-      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/LoadDICOMImages.m</file>
-      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/LoadDICOMStructures.m</file>
-      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/WriteDICOMDose.m</file>
-      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/WriteDICOMImage.m</file>
-      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/WriteDICOMStructures.m</file>
-      <file>/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_tools/WriteDVH.m</file>
       <file>${PROJECT_ROOT}/DicomViewer.fig</file>
       <file>${PROJECT_ROOT}/Event.m</file>
-      <file>${PROJECT_ROOT}/InitializeStatistics.m</file>
-      <file>${PROJECT_ROOT}/InitializeViewer.m</file>
-      <file>${PROJECT_ROOT}/LoadVersionInfo.m</file>
-      <file>${PROJECT_ROOT}/UpdateDVH.m</file>
-      <file>${PROJECT_ROOT}/UpdateDoseStatistics.m</file>
-      <file>${PROJECT_ROOT}/UpdateViewer.m</file>
+      <file>${PROJECT_ROOT}/dicom_tools/LoadDICOMDose.m</file>
+      <file>${PROJECT_ROOT}/dicom_tools/LoadDICOMImages.m</file>
+      <file>${PROJECT_ROOT}/dicom_tools/LoadDICOMStructures.m</file>
+      <file>${PROJECT_ROOT}/dicom_tools/WriteDICOMDose.m</file>
+      <file>${PROJECT_ROOT}/dicom_tools/WriteDICOMImage.m</file>
+      <file>${PROJECT_ROOT}/dicom_tools/WriteDICOMStructures.m</file>
+      <file>${PROJECT_ROOT}/dicom_tools/WriteDVH.m</file>
+      <file>${PROJECT_ROOT}/private/AddSubmodulePaths.m</file>
+      <file>${PROJECT_ROOT}/private/BrowseDICOMimages.m</file>
+      <file>${PROJECT_ROOT}/private/InitializeUI.m</file>
+      <file>${PROJECT_ROOT}/private/LoadVersionInfo.m</file>
+      <file>${PROJECT_ROOT}/private/ParseConfigOptions.m</file>
+      <file>${PROJECT_ROOT}/private/ScanDICOMpath.m</file>
+      <file>${PROJECT_ROOT}/tcs_plots/@DVHViewer/Calculate.m</file>
+      <file>${PROJECT_ROOT}/tcs_plots/@DVHViewer/DVHViewer.m</file>
+      <file>${PROJECT_ROOT}/tcs_plots/@DVHViewer/InitializeData.m</file>
+      <file>${PROJECT_ROOT}/tcs_plots/@DVHViewer/UpdatePlot.m</file>
+      <file>${PROJECT_ROOT}/tcs_plots/@DVHViewer/UpdateTable.m</file>
+      <file>${PROJECT_ROOT}/tcs_plots/@DVHViewer/WriteFile.m</file>
+      <file>${PROJECT_ROOT}/tcs_plots/@ImageViewer/ImageViewer.m</file>
+      <file>${PROJECT_ROOT}/tcs_plots/@ImageViewer/Initialize.m</file>
+      <file>${PROJECT_ROOT}/tcs_plots/@ImageViewer/Update.m</file>
     </fileset.depfun>
-    <fileset.resources />
+    <fileset.resources>
+      <file>${PROJECT_ROOT}/config.txt</file>
+    </fileset.resources>
     <fileset.package />
     <build-deliverables>
-      <file location="/Users/mwgeurts/Documents/DICOM MATLAB Tools" name="dicom_viewer" optional="false">/Users/mwgeurts/Documents/DICOM MATLAB Tools/dicom_viewer</file>
+      <file location="/Users/mwgeurts/Documents/MATLAB Tools" name="dicom_viewer" optional="false">/Users/mwgeurts/Documents/MATLAB Tools/dicom_viewer</file>
     </build-deliverables>
     <workflow />
     <matlab>
@@ -75,7 +86,7 @@
       <vista>false</vista>
       <linux>false</linux>
       <solaris>false</solaris>
-      <osver>10.12.1</osver>
+      <osver>10.12.6</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>maci64</arch>

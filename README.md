@@ -17,11 +17,7 @@ To run the application, execute `DicomViewer` with no arguments. Once the graphi
 
 ## Compatibility and Requirements
 
-This application has been validated in MATLAB version 8.5, Image Processing Toolbox 9.2, and Parallel Computing Toolbox version 6.6 on Macintosh OSX 10.10 (Yosemite).  The Image Processing Toolbox is required for execution.  The Parallel Computing Toolbox is optional and will be used to interpolate data using GPU.
-
-## Troubleshooting
-
-This application records key input parameters and results to a log.txt file using the `Event()` function. The log is the most important route to troubleshooting errors encountered by this software. The author can also be contacted using the information above. Refer to the license file for a full description of the limitations on liability when using or this software or its components.
+This application has been validated in MATLAB version 8.5 through 9.1, Image Processing Toolbox 9.2 through 9.5, and Parallel Computing Toolbox version 6.6 through 6.9 on Macintosh OSX 10.10 (Yosemite) through 10.12 (Sierra) and Windows 7.  The Image Processing Toolbox is required for execution.  The Parallel Computing Toolbox is optional and will be used to interpolate data using GPU.
 
 ## License
 

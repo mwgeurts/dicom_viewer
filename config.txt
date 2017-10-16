@@ -1,0 +1,4 @@
+DICOM_TOOLS             =   ./dicom_tools
+DEFAULT_PATH            =   userpath
+UNIT_FLAG               =   0
+DEFAULT_TRANSPARENCY    =   0.4
