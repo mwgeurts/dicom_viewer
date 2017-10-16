@@ -13,7 +13,7 @@ To install the Simple DICOM RT Viewer as a MATLAB App, download and execute the 
 
 ## Usage and Documentation
 
-To run the application, execute `DicomViewer` with no arguments. Once the graphical user interface loads, click Browse and select the directory containing the DICOM files to be displayed. The directory must contain at least one DICOM CT image, and may optionally also include an associated (Frame of Reference) RT Structure Set and RT Dose file. The files may be loacated within subfolders.
+To run the application, execute `DicomViewer` with no arguments. Once the graphical user interface loads, click Browse and select the directory containing the DICOM files to be displayed. The directory must contain at least one DICOM CT image, and may optionally also include a (Frame of Reference) associated RT Structure Set and RT Dose file. The files may be loacated within subfolders.
 
 ## Compatibility and Requirements
 
