@@ -25,7 +25,7 @@ Version 1.3.0 and later now supports loading DOSEXYZnrc Monte Carlo calculated d
 
 ## Compatibility and Requirements
 
-This application has been validated in MATLAB version 8.5 through 9.1, Image Processing Toolbox 9.2 through 9.5, and Parallel Computing Toolbox version 6.6 through 6.9 on Macintosh OSX 10.10 (Yosemite) through 10.12 (Sierra) and Windows 7.  The Image Processing Toolbox is required for execution.  The Parallel Computing Toolbox is optional and will be used to interpolate data using GPU.
+This application has been validated in MATLAB version 8.5 through 9.3, Image Processing Toolbox 9.2 through 10.1, and Parallel Computing Toolbox version 6.6 through 6.11 on Macintosh OSX 10.10 (Yosemite) through 10.13 (High Sierra) and Windows 7. The Image Processing Toolbox is required for execution. The Parallel Computing Toolbox is optional and will be used to interpolate data using GPU.
 
 ## License
 
