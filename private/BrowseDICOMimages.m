@@ -25,8 +25,11 @@ if isfield(handles, 'tplot')
     delete(handles.tplot);
     delete(handles.cplot);
     delete(handles.splot);
-    delete(handles.dplot);
     set(handles.alpha, 'visible', 'off');
+end
+
+if isfield(handles, 'dplot')
+    delete(handles.dplot);
     set(handles.struct_table, 'visible', 'off');
 end
 
@@ -84,7 +87,8 @@ if ~isempty(imagefiles)
 
         % Load the first RTSS
         handles.image.structures = LoadDICOMStructures(path, ...
-            rtssfiles{1}, handles.image);
+            rtssfiles{1}, handles.image, [], ...
+            handles.config.IGNORE_RTSS_FOR);
     else
         handles.image.structures = struct;
     end
@@ -92,8 +96,19 @@ if ~isempty(imagefiles)
     % If a dose was found
     if ~isempty(dosefiles)
 
-        % Load the first RTDOSE
-        handles.dose = LoadDICOMDose(path, dosefiles{1});
+        % If dose file is a .3ddose
+        if ~isempty(regexpi(dosefiles{1}, '\.3ddose$'))
+        
+            % Load the dose through Load3ddose
+            handles.dose = Load3ddose(path, dosefiles{1});
+        
+        else
+            
+            % Load the first RTDOSE
+            handles.dose = LoadDICOMDose(path, dosefiles{1});
+        end
+        
+        % Set empty image registration
         handles.dose.registration = [0 0 0 0 0 0];
 
         % If the dose array is not identical to the image, re-sample it

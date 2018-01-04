@@ -62,3 +62,6 @@ Event(['Default file path set to ', config.DEFAULT_PATH]);
 
 % Convert transparency to number
 config.DEFAULT_TRANSPARENCY = str2double(config.DEFAULT_TRANSPARENCY);
+
+% Convert ignore flag to number
+config.IGNORE_RTSS_FOR = str2double(config.IGNORE_RTSS_FOR);

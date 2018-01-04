@@ -9,7 +9,7 @@ function varargout = DicomViewer(varargin)
 % given relative volume.
 %
 % Author: Mark Geurts, mark.w.geurts@gmail.com
-% Copyright (C) 2017 University of Wisconsin Board of Regents
+% Copyright (C) 2018 University of Wisconsin Board of Regents
 %
 % This program is free software: you can redistribute it and/or modify it 
 % under the terms of the GNU General Public License as published by the  
@@ -24,7 +24,7 @@ function varargout = DicomViewer(varargin)
 % You should have received a copy of the GNU General Public License along 
 % with this program. If not, see http://www.gnu.org/licenses/.
 
-% Last Modified by GUIDE v2.5 09-Nov-2016 20:21:53
+% Last Modified by GUIDE v2.5 04-Jan-2018 09:27:58
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -60,7 +60,7 @@ warning('off','all');
 handles.output = hObject;
 
 % Set version handle
-handles.version = '1.2.0';
+handles.version = '1.3.0';
 
 % Determine path of current application
 [path, ~, ~] = fileparts(mfilename('fullpath'));
@@ -251,7 +251,7 @@ function alpha_Callback(hObject, ~, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % If the string contains a '%', parse the value
-if ~isempty(strfind(get(hObject, 'String'), '%'))
+if contains(get(hObject, 'String'), '%')
     value = sscanf(get(hObject, 'String'), '%f%%');
     
 % Otherwise, attempt to parse the response as a number

@@ -98,6 +98,12 @@ while i < length(list)
         % Clear temporary variable
         clear sublist;
 
+    % See if this is a .3ddose file
+    elseif ~isempty(regexpi(list(i).name, '\.3ddose$'))
+        
+        % Add to dose list
+        dosefiles{length(dosefiles)+1} = list(i).name;
+        
     % Otherwise, see if the file is a DICOM file
     else
 

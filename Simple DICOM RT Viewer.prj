@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3713657390" file="/Users/mwgeurts/Documents/MATLAB Tools/dicom_viewer/Simple DICOM RT Viewer.prj" location="/Users/mwgeurts/Documents/MATLAB Tools/dicom_viewer" name="Simple DICOM RT Viewer" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="517656583" file="/Users/mwgeurts/Documents/MATLAB Tools/dicom_viewer/Simple DICOM RT Viewer.prj" location="/Users/mwgeurts/Documents/MATLAB Tools/dicom_viewer" name="Simple DICOM RT Viewer" target="target.mlapps" target-name="Package App">
     <param.appname>Simple DICOM RT Viewer</param.appname>
     <param.authnamewatermark>Mark Geurts</param.authnamewatermark>
     <param.email>mark.w.geurts@gmail.com</param.email>
@@ -9,7 +9,7 @@
     <param.summary>Simple DICOM RT Viewer for MATLAB</param.summary>
     <param.description>The Simple DICOM RT Viewer is a MATLAB graphical user interface that loads and displays the contents of DICOM CT/MR, RT Structure Set, and RT Dose files. The interface allows the user to select a folder to scan for DICOM files, then loads the file contents into a series of simple MATLAB objects and displays the CT/MR transverse, coronal, and sagittal axes with overlaying contours and dose colorwash. An RT structure Set and RT Dose file is optional, but if provided, a DVH will also be displayed along with a table for adjusting contour display and reporting the dose values for a given relative volume.</param.description>
     <param.screenshot />
-    <param.version>1.2.0</param.version>
+    <param.version>1.3.0</param.version>
     <param.products.name>
       <item>Image Processing Toolbox</item>
       <item>MATLAB</item>
@@ -19,8 +19,8 @@
       <item>1</item>
     </param.products.id>
     <param.products.version>
-      <item>9.5</item>
-      <item>9.1</item>
+      <item>10.1</item>
+      <item>9.3</item>
     </param.products.version>
     <param.platforms />
     <param.output>/Users/mwgeurts/Documents/MATLAB Tools/dicom_viewer</param.output>
@@ -42,6 +42,7 @@
       <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
       <file>${PROJECT_ROOT}/DicomViewer.fig</file>
       <file>${PROJECT_ROOT}/Event.m</file>
+      <file>${PROJECT_ROOT}/dicom_tools/Load3ddose.m</file>
       <file>${PROJECT_ROOT}/dicom_tools/LoadDICOMDose.m</file>
       <file>${PROJECT_ROOT}/dicom_tools/LoadDICOMImages.m</file>
       <file>${PROJECT_ROOT}/dicom_tools/LoadDICOMStructures.m</file>
@@ -74,8 +75,39 @@
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>/Applications/MATLAB_R2016b.app</root>
-      <toolboxes />
+      <root>/Applications/MATLAB_R2017b.app</root>
+      <toolboxes>
+        <toolbox name="fixedpoint" />
+        <toolbox name="matlabcoder" />
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="polyspacebugfinder" />
+      </toolboxes>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <polyspacebugfinder>
+          <enabled>true</enabled>
+        </polyspacebugfinder>
+      </toolbox>
     </matlab>
     <platform>
       <unix>true</unix>
@@ -86,7 +118,7 @@
       <vista>false</vista>
       <linux>false</linux>
       <solaris>false</solaris>
-      <osver>10.12.6</osver>
+      <osver>10.13.2</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>maci64</arch>
