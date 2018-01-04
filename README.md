@@ -13,7 +13,15 @@ To install the Simple DICOM RT Viewer as a MATLAB App, download and execute the 
 
 ## Usage and Documentation
 
-To run the application, execute `DicomViewer` with no arguments. Once the graphical user interface loads, click Browse and select the directory containing the DICOM files to be displayed. The directory must contain at least one DICOM CT or MR image, and may optionally also include a (Frame of Reference) associated RT Structure Set and RT Dose file. The files may be loacated within subfolders.
+To run the application, execute `DicomViewer` with no arguments. Once the graphical user interface loads, click Browse and select the directory containing the DICOM files to be displayed. The directory must contain at least one DICOM CT or MR image, and may optionally also include a (Frame of Reference) associated RT Structure Set and RT Dose file. The files may be located within subfolders.
+
+If an RT Strcuture Set exists but does not share the same Frame of Reference as the CT or MR image, you can still load it by editing the following config.txt line from `0` to `1`:
+
+```
+IGNORE_RTSS_FOR         =   1
+```
+
+Version 1.3.0 and later now supports loading DOSEXYZnrc Monte Carlo calculated dose files in addition to DICOM RT Dose files. The dose file must be named with the extension `.3ddose`.
 
 ## Compatibility and Requirements
 
